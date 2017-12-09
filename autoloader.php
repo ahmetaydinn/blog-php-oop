@@ -10,7 +10,7 @@ spl_autoload_register(function ($class) {
     $components_base = __DIR__ . '/components/base/' . $fileName . '.php';
     $components = __DIR__ . '/components/' . $fileName . '.php';
 
-    $models = __DIR__ . 'models/' . $fileName . '.php';
+    $models = __DIR__ . '/models/' . $fileName . '.php';
     $controllers = __DIR__ . 'controllers/' . $fileName . '.php';
 
   

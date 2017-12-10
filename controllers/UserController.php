@@ -15,49 +15,47 @@ class UserController extends BaseController {
 
     public function actionCreate() {
 
-        $user = User::create();
-        
+        $model = User::create();
+
         // Postback
-        if(isset($_POST)){
-            
-            
-            
-            
+        if (isset($_POST['user'])) {
+            $model->loadAttributes($_POST['user']);
+            if ($model->insert()) {
+                $this->redirect('user/view&id=' . $model->id);
+            }
         }
-        $this->render('views/user/create', []);
+        $this->render('views/user/create', ['model' => $model]);
     }
-    
+
     public function actionUpdate() {
 
         $id = $_GET['id'];
         $model = User::find($id);
-        
+
         // Postback
-        if(isset($_POST) && $model->save()){
-            
-            
-            
-            
+        if (isset($_POST['user'])) {
+            $model->loadAttributes($_POST['user']);
+            if ($model->update()) {
+                $this->redirect('user/view&id=' . $model->id);
+            }
         }
 
-        $this->render('views/user/update', []);
+        $this->render('views/user/update', ['model' => $model]);
     }
-    
+
     public function actionView() {
 
         $id = $_GET['id'];
         $model = User::find($id);
-        $this->render('views/user/view', ['model'=>$model]);
+        $this->render('views/user/view', ['model' => $model]);
     }
-    
+
     public function actionDelete() {
-        
+
         // In the future do that as POST request Method
-        
         // TODO delete
-        
+
         $this->redirect('user/list');
     }
- 
 
 }

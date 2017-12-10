@@ -19,6 +19,7 @@ abstract class Controller extends Base {
     }
 
     public function redirect($route) {
+
         header("Location: index.php?r=$route");
         die();
     }

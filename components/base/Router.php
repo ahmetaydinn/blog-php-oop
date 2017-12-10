@@ -2,7 +2,7 @@
 
 namespace app\components\base;
 
-class Router {
+abstract class Router {
 
     private $controllerName;
     private $actionName;

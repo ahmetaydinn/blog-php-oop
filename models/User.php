@@ -7,17 +7,30 @@ use \app\components\base\Model as BaseModel;
 use app\components\base\ModelFactory;
 
 class User extends BaseModel {
+    
 
     public function validate() {
         
     }
 
     public function update() {
-        
+
+        if ($this->validate()) {
+            
+            
+            return true;
+        }
+        return false;
     }
 
     public function insert() {
         
+        if ($this->validate()) {
+            
+            
+            return true;
+        }
+        return false;
     }
 
     public function delete($id) {
@@ -42,6 +55,7 @@ class User extends BaseModel {
     static function findAll($select = [], $filter = [], $order = '') {
 
         $conn = Application::app()->db->conn;
+                
         $sql = 'SELECT * FROM user ORDER BY firstname';
         $stmt = $conn->query($sql);
         $rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);

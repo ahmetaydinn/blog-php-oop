@@ -28,7 +28,7 @@ class User extends BaseModel {
         $conn = Application::app()->db->conn;
         $sql = 'SELECT firstname, lastname FROM user ORDER BY firstname';
         $stmt = $conn->query($sql);
-        return $stmt->fetchAll();
+        return $stmt->fetchAll(\PDO::FETCH_ASSOC);
     }
 
 }

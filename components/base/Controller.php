@@ -14,7 +14,7 @@ abstract class Controller extends Base {
     }
 
     public function render($viewFile, $params = []) {
-
+        
         include $viewFile . '.php';
     }
 

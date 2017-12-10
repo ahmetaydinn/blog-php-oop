@@ -2,15 +2,28 @@
 
 namespace app\models;
 
-use \app\components\Application;
-use \app\components\base\Model as BaseModel;
+use app\components\Application;
+use app\components\base\Model as BaseModel;
 use app\components\base\ModelFactory;
+use app\components\ModelError;
 
 class User extends BaseModel {
     
 
     public function validate() {
         
+        if(trim($this->firstname) == ''){            
+            $this->addError(new ModelError('firstname', 'Firstname is required'));
+        }
+        if(trim($this->lastname) == ''){            
+            $this->addError(new ModelError('lastname', 'Lastname is required'));
+        }
+        
+        if($this->hasErrors()){
+            return false;
+        }
+        
+        return true;
     }
 
     public function update() {

@@ -2,9 +2,11 @@
 
 namespace app\components\base;
 
-abstract class Model extends Base implements iModel { 
-    
-    public $error = [];
+use \app\components\ModelError;
+
+abstract class Model extends Base implements iModel {
+
+    public $errors = [];
 
     public function loadAttributes($attributes = []) {
 
@@ -14,6 +16,21 @@ abstract class Model extends Base implements iModel {
             }
         }
         return $this;
+    }
+
+    public function addError(ModelError $error) {
+        $this->errors[] = $error;
+    }
+
+    public function hasErrors() {
+        if (count($this->errors) > 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function getErrors() {
+        return $this->errors;
     }
 
 }

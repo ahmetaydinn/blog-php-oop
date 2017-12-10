@@ -9,8 +9,8 @@ class UserController extends BaseController {
 
     public function actionList() {
 
-        $users = User::findAll();
-        $this->render('views/user/list', ['users' => $users]);
+        $models = User::findAll();
+        $this->render('views/user/list', ['models' => $models]);
     }
 
     public function actionCreate() {

@@ -11,19 +11,19 @@
         <th>Operators</th>
     </tr>
     <?php
-    $users = $params['users'];
-    if (is_array($users) && count($users) > 0) {
-        foreach ($users as $user) {
+    $models = $params['models'];
+    if (is_array($models) && count($models) > 0) {
+        foreach ($models as $model) {
             ?>    
 
             <tr>
-                <td><?php echo $user->id; ?></td>
-                <td><?php echo $user->firstname; ?></td>
-                <td><?php echo $user->lastname; ?></td>
+                <td><?php echo $model->id; ?></td>
+                <td><?php echo $model->firstname; ?></td>
+                <td><?php echo $model->lastname; ?></td>
                 <td>
-                    <a href="index.php?r=user/view&id=<?php echo $user->id ?>">View</a>
-                    <a href="index.php?r=user/update&id=<?php echo $user->id ?>">Edit</a>
-                    <a href="index.php?r=user/delete&id=<?php echo $user->id ?>">Delete</a>
+                    <a href="index.php?r=user/view&id=<?php echo $model->id ?>">View</a>
+                    <a href="index.php?r=user/update&id=<?php echo $model->id ?>">Edit</a>
+                    <a href="index.php?r=user/delete&id=<?php echo $model->id ?>">Delete</a>
                 </td>
             </tr>
 

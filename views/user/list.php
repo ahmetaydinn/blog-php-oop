@@ -1,44 +1,31 @@
 <?php $this->render('views/layout/header', []); ?>
 <?php $this->render('views/layout/menu', []); ?>
 
-<?php self::debug($params) ?>
-
 <table>
     <tr>
-        <th>Company</th>
-        <th>Contact</th>
-        <th>Country</th>
+        <th>id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Operators</th>
     </tr>
-    <tr>
-        <td>Alfreds Futterkiste</td>
-        <td>Maria Anders</td>
-        <td>Germany</td>
-    </tr>
-    <tr>
-        <td>Centro comercial Moctezuma</td>
-        <td>Francisco Chang</td>
-        <td>Mexico</td>
-    </tr>
-    <tr>
-        <td>Ernst Handel</td>
-        <td>Roland Mendel</td>
-        <td>Austria</td>
-    </tr>
-    <tr>
-        <td>Island Trading</td>
-        <td>Helen Bennett</td>
-        <td>UK</td>
-    </tr>
-    <tr>
-        <td>Laughing Bacchus Winecellars</td>
-        <td>Yoshi Tannamuri</td>
-        <td>Canada</td>
-    </tr>
-    <tr>
-        <td>Magazzini Alimentari Riuniti</td>
-        <td>Giovanni Rovelli</td>
-        <td>Italy</td>
-    </tr>
+    <?php
+    $users = $params['users'];
+    if (is_array($users) && count($users) > 0) {
+        foreach ($users as $user) {
+            ?>    
+
+            <tr>
+                <td><?php echo $user->id; ?></td>
+                <td><?php echo $user->firstname; ?></td>
+                <td><?php echo $user->lastname; ?></td>
+                <td></td>
+            </tr>
+
+
+            <?php
+        }
+    }
+    ?>
 </table>
 
 <?php $this->render('views/layout/footer', []); ?>

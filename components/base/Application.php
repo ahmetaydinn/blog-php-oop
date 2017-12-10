@@ -7,18 +7,23 @@ use \app\components\base\Controller as BaseController;
 use app\components\base\DatabaseFactory;
 use app\components\base\ControllerFactory;
 
-class Application extends Component {
+class Application extends Base {
 
     private $_config = [];
     private static $app;
     public $name = '';
     public $db;
+    public $router;
     public $controller;
 
     public function __construct($config = []) {
 
         $this->_config = $config;
         Application::$app = $this;
+    }
+
+    public function getConfig($name) {
+        return $this->_config[$name];
     }
 
     static function app() {
@@ -37,6 +42,8 @@ class Application extends Component {
 
         $this->init();
 
+        $this->bootstrap();
+
         $this->end();
     }
 
@@ -47,14 +54,20 @@ class Application extends Component {
 
     private function init() {
 
-        // load and connect Database
+        // load the components
+        // example load the database
         $this->loadDatabase();
 
         // handle requests and got to route
         $this->resolveRoutes();
     }
 
-    private function end() {
+    private function bootstrap() {
+
+        $this->controller->callAction($this->router->getActionName());
+    }
+
+    public function end() {
 
         // close connection
         $this->db->close();
@@ -78,21 +91,15 @@ class Application extends Component {
 
     private function resolveRoutes() {
 
-        $r = $_GET['r'];
-        if (!isset($r)) {
-            $r = $this->_config['defaultRoute'];
-        }
-        $aux = explode('/', $r);
-        $controllerName = $aux[0];
-        $actionName = $aux[1];
-
-        if (count($aux) != 2) {
-            throw new \Exception('Route is not well configured');
-        }
+        $router = new Router($this);
+        $this->setRouter($router);
         //create the controller and run action
-        $controller = ControllerFactory::create($controllerName);
+        $controller = ControllerFactory::create($router->getControllerName());
         $this->setController($controller);
-        $this->controller->callAction($actionName);
+    }
+
+    private function setRouter($router) {
+        $this->router = $router;
     }
 
     private function setController(BaseController $controller) {

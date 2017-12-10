@@ -2,7 +2,7 @@
 
 namespace app\components\base;
 
-class Component {
+class Base {
 
     static function debug($obj, $kill = true) {
         echo '<pre>';

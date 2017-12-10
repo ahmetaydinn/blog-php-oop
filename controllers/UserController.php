@@ -8,10 +8,56 @@ use app\models\User;
 class UserController extends BaseController {
 
     public function actionList() {
-        
-        $list = User::findAll([]);
 
-        $this->render('views/user/list', ['list'=>$list]);
+        $users = User::findAll();
+        $this->render('views/user/list', ['users' => $users]);
     }
+
+    public function actionCreate() {
+
+        $user = User::create();
+        
+        // Postback
+        if(isset($_POST)){
+            
+            
+            
+            
+        }
+        $this->render('views/user/create', []);
+    }
+    
+    public function actionUpdate() {
+
+        $id = $_GET['id'];
+        $model = User::find($id);
+        
+        // Postback
+        if(isset($_POST) && $model->save()){
+            
+            
+            
+            
+        }
+
+        $this->render('views/user/update', []);
+    }
+    
+    public function actionView() {
+
+        $id = $_GET['id'];
+        $model = User::find($id);
+        $this->render('views/user/view', ['model'=>$model]);
+    }
+    
+    public function actionDelete() {
+        
+        // In the future do that as POST request Method
+        
+        // TODO delete
+        
+        $this->redirect('user/list');
+    }
+ 
 
 }

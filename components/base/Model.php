@@ -3,6 +3,7 @@
 namespace app\components\base;
 
 use \app\components\ModelError;
+use \app\components\commons\Helper;
 
 abstract class Model extends Base implements iModel {
 
@@ -31,6 +32,10 @@ abstract class Model extends Base implements iModel {
 
     public function getErrors() {
         return $this->errors;
+    }
+    
+    public function purifier($attribute){
+        return Helper::purify($this->$attribute);
     }
 
 }

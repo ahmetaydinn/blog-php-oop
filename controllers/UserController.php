@@ -51,10 +51,10 @@ class UserController extends BaseController {
     }
 
     public function actionDelete() {
-
+        
+        $id = $_GET['id'];
         // In the future do that as POST request Method
-        // TODO delete
-
+        User::delete($id);
         $this->redirect('user/list');
     }
 

@@ -1,7 +1,9 @@
 <?php
 
 namespace app\components\base;
-
+/**
+ * Using Proxy Design Pathern
+ */
 abstract class Base {
 
     private $data = [];

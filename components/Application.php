@@ -17,11 +17,6 @@ class Application extends BaseApplication {
     public $router;
     public $controller;
 
-    public function __construct($config = []) {
-
-        parent::__construct($config);
-    }
-
     public function run() {
 
         $this->lifeCicle();

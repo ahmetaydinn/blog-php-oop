@@ -4,7 +4,8 @@ namespace app\components\base;
 
 abstract class Application extends Base {
 
-    private static $app;
+    protected $_config;
+    protected static $_app;
     
     /**
      * is not allowed to call from outside to prevent from creating multiple instances,
@@ -12,8 +13,8 @@ abstract class Application extends Base {
      */
     private function __construct($config = []) {
 
-        $this->config = $config;
-        Application::$app = $this;
+        $this->_config = $config;
+        Application::$_app = $this;
     }
 
     /**
@@ -32,11 +33,11 @@ abstract class Application extends Base {
 
     static function app() {
 
-        return self::$app;
+        return self::$_app;
     }
 
     public function getConfig($name) {
-        return $this->config[$name];
+        return $this->_config[$name];
     }
 
     public static function getInstance($config = []) {

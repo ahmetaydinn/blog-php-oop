@@ -5,7 +5,8 @@ namespace app\components;
 use app\components\base\Application as BaseApplication;
 use app\componets\base\iConnection;
 use app\components\base\Controller as BaseController;
-use app\components\base\DatabaseFactory;
+use app\components\base\ComponentFactory;
+use app\components\base\Component;
 use app\components\base\ControllerFactory;
 use app\components\base\Router as BaseRouter;
 use app\components\Router;
@@ -13,7 +14,6 @@ use app\components\Router;
 class Application extends BaseApplication {
 
     public $name = '';
-    public $db;
     public $router;
     public $controller;
 
@@ -38,7 +38,7 @@ class Application extends BaseApplication {
      */
     private function preInit() {
         // load configs
-        $this->name = $this->config['name'];
+        $this->name = $this->_config['name'];
     }
 
     /**
@@ -46,12 +46,22 @@ class Application extends BaseApplication {
      */
     private function init() {
 
-        // load the components
-        // example load the database
-        $this->loadDatabase();
+        // Inicialize all components
+        if (is_array($this->_config['components'])) {
 
+            foreach ($this->_config['components'] as $name => $component) {
+
+                $component = ComponentFactory::create($name, $component);
+                $this->setComponent($name, $component)->bootstrap();
+            }
+        }
         // handle requests and got to route
         $this->resolveRoutes();
+    }
+    
+    private function setComponent(string $name, Component $component){        
+        $this->$name = $component;
+        return $this->$name;
     }
 
     /**
@@ -67,26 +77,14 @@ class Application extends BaseApplication {
      */
     public function end() {
 
-        // close connection
-        if (isset($this->db)) {
-            $this->db->close();
-        }
-    }
+        // Inicialize all components
+        if (is_array($this->_config['components'])) {
 
-    private function loadDatabase() {
+            foreach ($this->_config['components'] as $name => $component) {
 
-        if (isset($this->config['db'])) {
-            if (!isset($this->db)) {
-                $db = DatabaseFactory::create($this->config['db']);
-                $this->setDb($db);
-                $this->db->connect($this->config['db']);
+                $this->$name->close();
             }
         }
-    }
-
-    private function setDb(iConnection $db) {
-
-        $this->db = $db;
     }
 
     private function resolveRoutes() {

@@ -3,7 +3,6 @@
 namespace app\components;
 
 use app\components\base\Application as BaseApplication;
-use app\componets\base\iConnection;
 use app\components\base\Controller as BaseController;
 use app\components\base\ComponentFactory;
 use app\components\base\Component;
@@ -58,11 +57,6 @@ class Application extends BaseApplication {
         // handle requests and got to route
         $this->resolveRoutes();
     }
-    
-    private function setComponent(string $name, Component $component){        
-        $this->$name = $component;
-        return $this->$name;
-    }
 
     /**
      * Launch the action of controller
@@ -85,6 +79,11 @@ class Application extends BaseApplication {
                 $this->$name->close();
             }
         }
+    }
+
+    private function setComponent(string $name, Component $component) {
+        $this->$name = $component;
+        return $this->$name;
     }
 
     private function resolveRoutes() {

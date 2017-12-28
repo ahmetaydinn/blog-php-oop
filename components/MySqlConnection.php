@@ -8,7 +8,7 @@ use app\components\base\Component;
 class MySqlConnection extends Component implements iConnection {
 
     public $conn;
-        
+
     public function __construct($config) {
         parent::__construct($config);
     }
@@ -19,7 +19,7 @@ class MySqlConnection extends Component implements iConnection {
 
     public function end($params = []) {
         return $this->close($this->_config);
-    }   
+    }
 
     public function connect($config) {
 
@@ -50,7 +50,7 @@ class MySqlConnection extends Component implements iConnection {
         return;
     }
 
-    public function close() {
+    public function close($params = []) {
         $this->conn = null;
     }
 

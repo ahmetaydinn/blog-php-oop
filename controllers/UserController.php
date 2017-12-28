@@ -7,6 +7,14 @@ use app\models\User;
 
 class UserController extends BaseController {
 
+    protected function beforeAction($actionName) {
+        parent::beforeAction($actionName);
+        //TODO check AUTH
+        if ($actionName == 'actionCreate') {
+            //die('need auth');
+        }
+    }
+
     public function actionList() {
 
         $models = User::findAll();
@@ -51,7 +59,7 @@ class UserController extends BaseController {
     }
 
     public function actionDelete() {
-        
+
         $id = $_GET['id'];
         // In the future do that as POST request Method
         User::delete($id);

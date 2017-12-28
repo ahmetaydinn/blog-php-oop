@@ -6,9 +6,9 @@ return [
     'components' => [
         'db' => [
             'class' => 'app\components\MySqlConnection',
-            'dsn' => 'mysql:host=localhost;dbname=dream',
+            'dsn' => 'mysql:host=localhost;dbname=blog',
             'username' => 'victor',
             'password' => '',
-        ]
+        ],
     ]
 ];

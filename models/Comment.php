@@ -1,12 +1,13 @@
 <?php
 
-namespace app\classes\models;
+namespace app\models;
 
-use app\classes\App;
-use app\classes\base\ModelFactory;
-use app\classes\ModelError;
+use app\components\base\Model as ModelBase;
+use app\components\Application;
+use app\components\base\ModelFactory;
+use app\components\ModelError;
 
-class Comment extends \app\classes\base\ModelBase {
+class Comment extends ModelBase {
 
     static function create() {
         return ModelFactory::create('Comment');
@@ -30,7 +31,7 @@ class Comment extends \app\classes\base\ModelBase {
 
     static function findByPostId($postId) {
 
-        $conn = App::app()->db->conn;
+        $conn = Application::app()->db->conn;
         $sql = "SELECT * FROM comment where post_id = ? ORDER BY date_insert DESC";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
@@ -58,7 +59,7 @@ class Comment extends \app\classes\base\ModelBase {
 
         if ($this->validate()) {
 
-            $conn = App::app()->db->conn;
+            $conn = Application::app()->db->conn;
             $sql = " INSERT INTO comment "
                     . " ( name, email, url, remark, post_id ) "
                     . " VALUES  "
@@ -77,6 +78,22 @@ class Comment extends \app\classes\base\ModelBase {
             return true;
         }
         return false;
+    }
+
+    public function update() {
+        
+    }
+
+    public static function delete($id) {
+        
+    }
+
+    public static function find($id) {
+        
+    }
+
+    public static function findAll() {
+        
     }
 
 }

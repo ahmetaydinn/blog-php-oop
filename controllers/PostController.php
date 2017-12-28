@@ -2,11 +2,12 @@
 
 namespace app\controllers;
 
-use \app\classes\base\ModelFactory;
-use \app\classes\models\Post;
-use app\classes\Auth;
+use \app\components\base\Controller as BaseController;
+use \app\components\base\ModelFactory;
+use app\models\Post;
+use app\models\Auth;
 
-class PostController extends \app\classes\base\Controller {
+class PostController extends BaseController {
 
     static function actionDetail() {
         $id = $_GET['id'];

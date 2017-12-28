@@ -1,11 +1,12 @@
 <?php
 
-namespace app\classes\models;
+namespace app\models;
 
-use app\classes\App;
-use app\classes\base\ModelFactory;
+use app\components\base\Model as BaseModel;
+use app\components\Application;
+use app\components\base\ModelFactory;
 
-class Post extends \app\classes\base\ModelBase {
+class Post extends BaseModel{
 
     public static function create() {
         return ModelFactory::create('Post');
@@ -17,7 +18,7 @@ class Post extends \app\classes\base\ModelBase {
 
     static function findHome($limit = 3) {
 
-        $conn = App::app()->db->conn;
+        $conn = Application::app()->db->conn;
         $sql = 'SELECT p.id as id, p.title as title,'
               .' p.description as description, '
               .' date_insert, a.name as author '
@@ -90,6 +91,22 @@ class Post extends \app\classes\base\ModelBase {
             return true;
         }
         return false;
+    }
+
+    public function insert() {
+        
+    }
+
+    public function update() {
+        
+    }
+
+    public static function find($id) {
+        
+    }
+
+    public static function findAll() {
+        
     }
 
 }

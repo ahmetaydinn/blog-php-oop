@@ -6,5 +6,5 @@ interface iConnection {
 
     public function connect($config);
 
-    public function close();
+    public function close($params);
 }

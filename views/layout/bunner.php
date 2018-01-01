@@ -1,1 +1,3 @@
-[IMAGE IS HERE]
+<div class="bunner">
+    {BUNNER}    
+</div>

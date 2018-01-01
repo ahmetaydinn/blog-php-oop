@@ -1,12 +1,13 @@
 <?php
 
-namespace app\classes;
+namespace app\components;
 
-use app\classes\ModelError;
-use \app\classes\base\iAuth;
-use app\classes\models\Author;
+use app\components\base\Model as ModelBase;
+use \app\components\base\iAuth;
+use app\components\ModelError;
+use app\models\Author;
 
-class Auth extends \app\classes\base\ModelBase implements iAuth {
+class Auth extends ModelBase implements iAuth {
 
     public $defaultPage = 'home/autentication';
 

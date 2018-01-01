@@ -5,11 +5,23 @@ namespace app\controllers;
 use \app\components\base\Controller as BaseController;
 use \app\components\base\ModelFactory;
 use app\models\Post;
-use app\models\Auth;
+use app\components\Auth;
 
 class PostController extends BaseController {
 
-    static function actionDetail() {
+    protected function beforeAction($actionName) {
+        parent::beforeAction($actionName);
+
+        if ($actionName == 'actionCreate') {
+            // check authentication
+        }
+
+        if ($actionName == 'actionDelete') {
+            // check authentication
+        }
+    }
+
+    public function actionDetail() {
         $id = $_GET['id'];
 
         $comment = ModelFactory::create('Comment');
@@ -22,25 +34,61 @@ class PostController extends BaseController {
             $comment->post_id = $id;
             if ($comment->insert()) {
                 //Set a flash message here.
-                self::redirect('index.php?page=post&method=detail&id=' . $id);
+                $this->redirect('post/detail&id=' . $id);
             }
         }
-        $post = \app\classes\models\Post::findPost($id);
+        $post = Post::find($id);
 
-        self::render('post/detail', ['post' => $post, 'comment' => $comment]);
+        $this->render('views/post/detail', ['post' => $post, 'comment' => $comment]);
     }
 
-    static function actionDelete() {
+    public function actionCreate() {
+
+        $post = ModelFactory::create('Post');
+
+        // Postback
+        if ($_POST['post']) {
+            
+            $post = ModelFactory::create('Post');
+            $post->loadAttributes($_POST['post']);
+            $post->author_id = 1;
+            if ($post->insert()) {
+                //Set a flash message here.
+                $this->redirect('post/detail&id=' . $post->id);
+            }
+        }
+        $this->render('views/post/create', ['post' => $post]);
+    }
+    
+    public function actionUpdate() {
+
+        $id = $_GET['id'];
+        $post = Post::find($id);
+                
+        // Postback
+        if ($_POST['post']) {
+            
+            $post->loadAttributes($_POST['post']);
+            $post->author_id = 1;
+            if ($post->update()) {
+                //Set a flash message here.
+                $this->redirect('post/detail&id=' . $post->id);
+            }
+        }
+        $this->render('views/post/update', ['post' => $post]);
+    }
+
+    public function actionDelete() {
 
         //TODO CHANGE It TO POST
         $id = $_GET['id'];
         $authorId = Auth::getSession('id');
         // check auth
         if (Post::isOwner($postId, $authorId)) {
-            Post::delete($id);
+            //Post::delete($id); 
         }
 
-        self::redirect('index.php');
+        $this->redirect('home/index');
     }
 
 }

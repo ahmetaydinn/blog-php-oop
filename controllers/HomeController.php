@@ -11,7 +11,7 @@ class HomeController extends BaseController {
 
         $posts = Post::findHome();
 
-        $this->render('views/index/home', ['posts' => $posts]);
+        $this->render('views/home/index', ['posts' => $posts]);
     }
 
 }

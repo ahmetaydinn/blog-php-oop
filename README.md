@@ -12,6 +12,11 @@ Here we have many design patterns as:
 - Chain Of Responsibilities;
 - Delegation;
 
+On this project you also could realise how to deal with:
+- Sql Injection;
+- XSS attack;
+- Cross Site Request Forgety (CSRF) Attack
+
 # 
 Views:
 ![](https://github.com/victorfleite/blog-php-oop/blob/master/assets/imgs/print.png)

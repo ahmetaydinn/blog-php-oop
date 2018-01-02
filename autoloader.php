@@ -1,5 +1,7 @@
 <?php
-
+/**
+ * This method (Lambda) is called every time that the compiler find a new class path.
+ */
 spl_autoload_register(function ($class) {
 
     $class = ltrim($class, '\\');

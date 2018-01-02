@@ -6,6 +6,7 @@ use \app\components\base\Controller as BaseController;
 use \app\components\base\ModelFactory;
 use app\models\Post;
 use app\components\Auth;
+use app\components\commons\Security;
 
 class PostController extends BaseController {
 
@@ -29,7 +30,7 @@ class PostController extends BaseController {
         $comment = ModelFactory::create('Comment');
 
         // Postback
-        if ($_POST['comment']) {
+        if ($_POST['comment'] && Security::checkCsrfToken($_POST['csrf_token'])) {
 
             $comment = ModelFactory::create('Comment');
             $comment->loadAttributes($_POST['comment']);
@@ -49,7 +50,7 @@ class PostController extends BaseController {
         $post = ModelFactory::create('Post');
 
         // Postback
-        if ($_POST['post']) {
+        if ($_POST['post'] && Security::checkCsrfToken($_POST['csrf_token'])) {
 
             $post = ModelFactory::create('Post');
             $post->loadAttributes($_POST['post']);
@@ -68,7 +69,7 @@ class PostController extends BaseController {
         $post = Post::find($id);
 
         // Postback
-        if ($_POST['post']) {
+        if ($_POST['post'] && Security::checkCsrfToken($_POST['csrf_token'])) {
 
             $post->loadAttributes($_POST['post']);
             $post->author_id = 1;

@@ -1,4 +1,10 @@
+<?php
+
+use app\components\commons\Security;
+?>
+
 <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method='post'>
+    <input type="hidden" name="csrf_token" value="<?php echo Security::generateCsrfToken(); ?>"/>
 
     <div class="form-group">
         <label for="name">Name</label>

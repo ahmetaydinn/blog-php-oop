@@ -138,8 +138,10 @@ if ($form->hasErrors()) {
     $(function () {
 
         $('#btn-delete').on('click', function () {
-
-            $('<form action="./index.php?r=post/delete" method="post" id="form-delete"><input type="hidden" name="id" value="<?= $post->id ?>"></form>').appendTo('body');
+            var form = '<form action="./index.php?r=post/delete" method="post" id="form-delete">' +
+                    ' <input type="hidden" name="id" value="<?= $post->id ?>">' +
+                    '</form>';
+            $(form).appendTo('body');
             $('#form-delete').submit();
         });
 

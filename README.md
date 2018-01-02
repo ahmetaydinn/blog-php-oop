@@ -4,7 +4,7 @@ Here we have many design patterns as:
 
 - Singleton;
 - Front Controller;
-- Model, View and Control - MVC;
+- Model, View and Controller - MVC;
 - Factory Method;
 - Fluent Interface;
 - Dependency Injection;

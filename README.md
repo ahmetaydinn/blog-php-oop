@@ -22,7 +22,7 @@ Views:
 $ git clone https://github.com/victorfleite/blog-php-oop.git
 ```
 
-Database script: https://github.com/victorfleite/blog-php-oop/tree/master/config/script ( https://github.com/victorfleite/blog-php-oop/tree/master/config/script )
+Database script: https://github.com/victorfleite/blog-php-oop/tree/master/config/script
 
 Restore the database using
 

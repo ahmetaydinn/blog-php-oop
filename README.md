@@ -14,7 +14,7 @@ Here we have many design patterns as:
 
 # 
 Views:
-![](https://github.com/victorfleite/alertmanager/blob/master/assets/imgs/alertas_tela_2.png)
+![](https://github.com/victorfleite/blog-php-oop/blob/master/assets/imgs/print.png)
 
 ### Installation
 

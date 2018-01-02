@@ -15,7 +15,7 @@ Here we have many design patterns as:
 On this project you also could realise how to deal with:
 - Sql Injection;
 - XSS attack;
-- Cross Site Request Forgety (CSRF) Attack
+- Cross Site Request Forgery (CSRF) Attack
 
 # 
 Views:

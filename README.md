@@ -22,8 +22,11 @@ Views:
 $ git clone https://github.com/victorfleite/blog-php-oop.git
 ```
 
-Restore the database on
+Database script: https://github.com/victorfleite/blog-php-oop/tree/master/config/script ( https://github.com/victorfleite/blog-php-oop/tree/master/config/script )
 
+Restore the database using
+
+mysql -p -u[user] blog < blog.sql
 
 
 ### Run

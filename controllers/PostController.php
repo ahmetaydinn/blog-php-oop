@@ -12,12 +12,14 @@ class PostController extends BaseController {
     protected function beforeAction($actionName) {
         parent::beforeAction($actionName);
 
-        if ($actionName == 'actionCreate') {
-            // check authentication
+        if ($actionName == 'actionCreate' && !Auth::isLogged()) {
+            //TODO Add Flash message here
+            $this->redirect('home/index');
         }
 
-        if ($actionName == 'actionDelete') {
-            // check authentication
+        if ($actionName == 'actionDelete' && !Auth::isLogged()) {
+            //TODO Add Flash message here
+            $this->redirect('home/index');
         }
     }
 
@@ -33,7 +35,7 @@ class PostController extends BaseController {
             $comment->loadAttributes($_POST['comment']);
             $comment->post_id = $id;
             if ($comment->save()) {
-                //Set a flash message here.
+                //TODO Set a flash message here.
                 $this->redirect('post/detail&id=' . $id);
             }
         }
@@ -53,7 +55,7 @@ class PostController extends BaseController {
             $post->loadAttributes($_POST['post']);
             $post->author_id = 1;
             if ($post->save()) {
-                //Set a flash message here.
+                //TODO Set a flash message here.
                 $this->redirect('post/detail&id=' . $post->id);
             }
         }
@@ -71,7 +73,7 @@ class PostController extends BaseController {
             $post->loadAttributes($_POST['post']);
             $post->author_id = 1;
             if ($post->save()) {
-                //Set a flash message here.
+                //TODO Set a flash message here.
                 $this->redirect('post/detail&id=' . $post->id);
             }
         }
@@ -80,12 +82,12 @@ class PostController extends BaseController {
 
     public function actionDelete() {
 
-        //TODO CHANGE It TO POST
-        $id = $_GET['id'];
+        $id = $_POST['id'];
         $authorId = Auth::getSession('id');
         // check auth
-        if (Post::isOwner($postId, $authorId)) {
-            //Post::delete($id); 
+        $post = Post::find($id);
+        if ($post->isOwner($authorId)) {
+            Post::delete($id);
         }
 
         $this->redirect('home/index');

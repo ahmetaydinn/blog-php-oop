@@ -3,10 +3,13 @@
 <?php $this->render('views/layout/menu', []); ?>
 <?php
 
+use app\components\Auth;
 use app\components\commons\Helper;
+use app\models\Post;
 
 $post = $params['post'];
 $form = $params['comment'];
+$userId = Auth::getSession('id');
 ?>
 
 
@@ -21,21 +24,31 @@ if ($form->hasErrors()) {
 
     <?php
 }
-?>
-<!-- 
-    TODO Change this link bellow to post submition.. [more safy]
--->
-<div class="display-buttons">
-    <a class="btn btn-primary" href="./index.php?r=post/update&id=<?= $post->id ?>">
-        EDIT
-    </a>
-    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">
-        DELETE
-    </button>
-</div>
+
+if (Auth::isLogged() && $post->isOwner($userId)) {
+    ?>
+    <div class="display-buttons">
+        <a class="btn btn-primary" href="./index.php?r=post/update&id=<?= $post->id ?>">
+            EDIT
+        </a>
+        <button class="btn btn-danger" data-toggle="modal" data-target="#myModal">    
+            DELETE
+        </button>
+    </div>
+<?php } ?>
 <table class="table table-bordered">
     <tr>
-        <th colspan="2"><?= Helper::dateFormat($post->date_insert, 'd.m.Y') ?> : <?php echo $post->title ?></th>
+        <th colspan="2">
+            <?php
+            $date = Helper::dateFormat($post->date_insert, 'Y-m-d');
+            if (Helper::isToday($date)) {
+                echo 'Today';
+            } else {
+                echo Helper::dateFormat($post->date_insert, 'd.m.Y');
+            }
+            ?> : 
+            <?php echo $post->title ?> 
+        </th>
     </tr>
     <tr>
         <td colspan="2"><?= Helper::decodeHTML($post->description); ?></td>
@@ -100,36 +113,38 @@ if ($form->hasErrors()) {
 <?php $this->render('views/post/_comments_form', $params); ?>
 
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+<!-- Modal -->
+<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Confirmation</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Confirmation</h4>
             </div>
             <div class="modal-body">
-                <p>Do you realy want to delete this post?</p>
+                <p>Do you really want to delete this post?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-warning">Yes</button>
+                <button type="button" id="btn-delete" data-dismiss="modal" class="btn btn-warning">Yes</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
-    <script>
+</div>
 
-        /*$(function () {
-         
-         $('#delete').on('click', function () {
-         $('#myModal').modal('toggle');
-         })
-         
-         
-         
-         })*/
 
-    </script>
+<script>
 
-    <?php $this->render('views/layout/footer', []); ?>
+    $(function () {
+
+        $('#btn-delete').on('click', function () {
+
+            $('<form action="./index.php?r=post/delete" method="post" id="form-delete"><input type="hidden" name="id" value="<?= $post->id ?>"></form>').appendTo('body');
+            $('#form-delete').submit();
+        });
+
+    })
+
+</script>
+
+<?php $this->render('views/layout/footer', []); ?>

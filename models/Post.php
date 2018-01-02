@@ -52,7 +52,7 @@ class Post extends BaseModel {
         return true;
     }
 
-    static function findHome($limit = 3) {
+    static function findHome() {
 
         $conn = Application::app()->db->conn;
         $sql = 'SELECT p.id as id, p.title as title,'
@@ -91,11 +91,9 @@ class Post extends BaseModel {
         $stmt->execute();
     }
 
-    static function isOwner($postId, $authorId) {
+    public function isOwner($authorId) {
 
-        $post = self::find($postId);
-        //self::debug($post);
-        if ($post->author_id == $authorId) {
+        if ($this->author_id == $authorId) {
             return true;
         }
         return false;

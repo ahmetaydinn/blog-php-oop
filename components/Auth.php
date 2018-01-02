@@ -2,27 +2,38 @@
 
 namespace app\components;
 
-use app\components\base\Base;
-use \app\components\base\iAuth;
+use app\components\base\Auth as BaseAuth;
 use app\components\ModelError;
+use app\components\validators\RequiredValidator;
+use app\components\validators\LengthValidator;
 use app\models\Author;
 
-class Auth extends Base implements iAuth {
+class Auth extends BaseAuth {
 
-    public $defaultPage = 'home/autentication';
+    public $defaultPage = 'home/login';
 
     public static function create() {
         return new Auth();
     }
 
     public function validate() {
-        if (trim($this->login) == '') {
-            $this->addError(new ModelError('name', 'Login is required'));
+
+        if (!RequiredValidator::isValid($this->login)) {
+            $this->addError(new ModelError('login', 'Login is required'));
         }
-        if (trim($this->password) == '') {
-            $this->addError(new ModelError('remark', 'Password is required'));
+        
+        if (!LengthValidator::isValid($this->login, ['quantity' => 100])) {
+            $this->addError(new ModelError('login', 'Login max size is 100 characters'));
+        }
+        
+        if (!RequiredValidator::isValid($this->password)) {
+            $this->addError(new ModelError('password', 'Password is required'));
         }
 
+        if (!LengthValidator::isValid($this->password, ['quantity' => 100])) {
+            $this->addError(new ModelError('password', 'Password max size is 100 characters'));
+        }
+        
         if ($this->hasErrors()) {
             return false;
         }

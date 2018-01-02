@@ -1,9 +1,9 @@
 <?php
 
-namespace app\classes\models;
+namespace app\models;
 
 use app\components\base\Model as ModelBase;
-use app\components\App;
+use app\components\Application;
 use app\components\base\ModelFactory;
 
 class Author extends ModelBase {
@@ -19,7 +19,7 @@ class Author extends ModelBase {
     static function findByUserName($username) {
 
 
-        $conn = App::app()->db->conn;
+        $conn = Application::app()->db->conn;
         $sql = "SELECT * FROM author where login = ?";
         $stmt = $conn->prepare($sql);
         $stmt->execute([
@@ -38,12 +38,25 @@ class Author extends ModelBase {
         // TODO insert or update this model
     }
 
-    public static function delete() {
+    public static function delete($id) {
         // TODO delete this model
     }
 
     public static function find($id) {
-        // TODO find this model
+
+        $conn = Application::app()->db->conn;
+        $sql = "SELECT * FROM author where id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            $id
+        ]);
+        $row = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if (null != $row) {
+            $author = ModelFactory::create('Author');
+            $author->loadAttributes($row);
+            return $author;
+        }
+        return null;
     }
 
 }

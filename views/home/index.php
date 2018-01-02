@@ -17,7 +17,18 @@ if (is_array($posts) && count($posts) > 0) {
         ?>
         <table class="table table-bordered">
             <tr>
-                <th colspan="2"><a href="./index.php?r=post/detail&id=<?php echo $post->id ?>"><?php echo Helper::dateFormat($post->date_insert, 'd.m.Y') ?> : <?php echo $post->title ?></a></th>
+                <th colspan="2">
+                    <a href="./index.php?r=post/detail&id=<?php echo $post->id ?>">
+                        <?php
+                        $date = Helper::dateFormat($post->date_insert, 'Y-m-d');
+                        if (Helper::isToday($date)) {
+                            echo 'Today';
+                        } else {
+                            echo Helper::dateFormat($post->date_insert, 'd.m.Y');
+                        }
+                        ?> : <?php echo $post->title ?>
+                    </a>
+                </th>
             </tr>
             <tr>
                 <td colspan="2"><?= Helper::inTheEnd(Helper::decodeHTML($post->description), '...', 1000) ?></td>

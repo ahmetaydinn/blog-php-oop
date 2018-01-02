@@ -2,7 +2,7 @@
 
 namespace app\components;
 
-use app\componets\base\iConnection;
+use app\components\base\iConnection;
 use app\components\base\Component;
 
 class MySqlConnection extends Component implements iConnection {

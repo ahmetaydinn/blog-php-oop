@@ -18,7 +18,7 @@ abstract class Router {
         if (count($aux) != 2) {
             throw new \Exception('Route is not well configured');
         }
-
+        
         $this->controllerName = $aux[0];
         $this->actionName = $aux[1];
     }

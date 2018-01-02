@@ -32,7 +32,7 @@ class PostController extends BaseController {
             $comment = ModelFactory::create('Comment');
             $comment->loadAttributes($_POST['comment']);
             $comment->post_id = $id;
-            if ($comment->insert()) {
+            if ($comment->save()) {
                 //Set a flash message here.
                 $this->redirect('post/detail&id=' . $id);
             }
@@ -48,29 +48,29 @@ class PostController extends BaseController {
 
         // Postback
         if ($_POST['post']) {
-            
+
             $post = ModelFactory::create('Post');
             $post->loadAttributes($_POST['post']);
             $post->author_id = 1;
-            if ($post->insert()) {
+            if ($post->save()) {
                 //Set a flash message here.
                 $this->redirect('post/detail&id=' . $post->id);
             }
         }
         $this->render('views/post/create', ['post' => $post]);
     }
-    
+
     public function actionUpdate() {
 
         $id = $_GET['id'];
         $post = Post::find($id);
-                
+
         // Postback
         if ($_POST['post']) {
-            
+
             $post->loadAttributes($_POST['post']);
             $post->author_id = 1;
-            if ($post->update()) {
+            if ($post->save()) {
                 //Set a flash message here.
                 $this->redirect('post/detail&id=' . $post->id);
             }

@@ -10,6 +10,13 @@ use app\components\base\ControllerFactory;
 use app\components\base\Router as BaseRouter;
 use app\components\Router;
 
+
+/**
+ * Here we have examples of Singleton App Design, mixed with 
+ * 
+ * 
+ * @author victor.leite@gmail.com
+ */
 class Application extends BaseApplication {
 
     public $name = '';

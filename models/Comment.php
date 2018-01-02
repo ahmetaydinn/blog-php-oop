@@ -80,30 +80,44 @@ class Comment extends ModelBase {
         return $out;
     }
 
-    public function insert() {
+    public function save() {
 
         if ($this->validate()) {
 
-            $conn = Application::app()->db->conn;
-            $sql = " INSERT INTO comment "
-                    . " ( name, email, url, remark, post_id ) "
-                    . " VALUES  "
-                    . " ( ?, ?, ? , ?, ? )";
-            // USES prepared statements to avoid sql injection
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([
-                // TO AVOID XSS ATTACKS, APPLY FILTERS
-                filter_var($this->name, FILTER_SANITIZE_STRING),
-                filter_var($this->email, FILTER_SANITIZE_EMAIL),
-                filter_var($this->url, FILTER_SANITIZE_URL),                
-                filter_var($this->remark, FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-                $this->post_id,
-            ]);
-            $this->id = $conn->lastInsertId();
+            if (!$this->id) {
+
+                $conn = Application::app()->db->conn;
+                $sql = " INSERT INTO comment "
+                        . " ( name, email, url, remark, post_id ) "
+                        . " VALUES  "
+                        . " ( ?, ?, ? , ?, ? )";
+                // USES prepared statements to avoid sql injection
+                $stmt = $conn->prepare($sql);
+                $stmt->execute([
+                    // TO AVOID XSS ATTACKS, APPLY FILTERS
+                    filter_var($this->name, FILTER_SANITIZE_STRING),
+                    filter_var($this->email, FILTER_SANITIZE_EMAIL),
+                    filter_var($this->url, FILTER_SANITIZE_URL),
+                    filter_var($this->remark, FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                    $this->post_id,
+                ]);
+                $this->id = $conn->lastInsertId();
+            } else {
+
+                // Implement UPDATE here
+            }
 
             return true;
         }
         return false;
+    }
+
+    public static function delete($id) {
+        // Implement DELETE here
+    }
+
+    public static function find($id) {
+        // Implement FIND here
     }
 
 }

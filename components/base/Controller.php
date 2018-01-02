@@ -12,7 +12,7 @@ abstract class Controller extends Base {
         
     }
 
-    public function callAction($actionName) {
+    final public function callAction($actionName) {
         $realName = 'action' . ucfirst($actionName);
         if (is_callable([$this, $realName])) {
             $this->beforeAction($realName);

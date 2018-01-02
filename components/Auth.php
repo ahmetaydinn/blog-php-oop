@@ -2,12 +2,12 @@
 
 namespace app\components;
 
-use app\components\base\Model as ModelBase;
+use app\components\base\Base;
 use \app\components\base\iAuth;
 use app\components\ModelError;
 use app\models\Author;
 
-class Auth extends ModelBase implements iAuth {
+class Auth extends Base implements iAuth {
 
     public $defaultPage = 'home/autentication';
 

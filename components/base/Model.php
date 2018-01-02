@@ -4,19 +4,23 @@ namespace app\components\base;
 
 use \app\components\ModelError;
 
+/*
+ * This abstract class represent an abstraction to ORM Active Record
+ */
+
 abstract class Model extends Base {
 
     public $errors = [];
 
-    public function loadAttributes($attributes = []) {
+    abstract static function find($id);
 
-        if (isset($attributes) && is_array($attributes)) {
-            foreach ($attributes as $attribute => $value) {
-                $this->$attribute = $value;
-            }
-        }
-        return $this;
-    }
+    abstract static function create();
+
+    abstract static function delete($id);
+
+    abstract function validate();
+
+    abstract function save();
 
     public function addError(ModelError $error) {
         $this->errors[] = $error;
@@ -31,6 +35,6 @@ abstract class Model extends Base {
 
     public function getErrors() {
         return $this->errors;
-    }    
+    }
 
 }

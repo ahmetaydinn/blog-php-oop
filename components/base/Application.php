@@ -2,11 +2,17 @@
 
 namespace app\components\base;
 
+/**
+ * Example of Singleton
+ * http://designpatternsphp.readthedocs.io/en/latest/Creational/Singleton/README.html#
+ * 
+ * @author victor.leite@gmail.com
+ */
 abstract class Application extends Base {
 
     protected $_config;
     protected static $_app;
-    
+
     /**
      * is not allowed to call from outside to prevent from creating multiple instances,
      * to use the singleton, you have to obtain the instance from Singleton::getInstance() instead

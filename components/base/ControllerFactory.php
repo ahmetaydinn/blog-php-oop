@@ -1,7 +1,10 @@
 <?php
 
 namespace app\components\base;
-
+/**
+ * Example of Simple Factory design Pathern
+ * http://designpatternsphp.readthedocs.io/en/latest/Creational/SimpleFactory/README.html
+ */
 class ControllerFactory {
 
     public static function create($controllerName) { 

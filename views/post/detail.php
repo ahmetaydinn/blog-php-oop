@@ -38,7 +38,7 @@ if ($form->hasErrors()) {
         <th colspan="2"><?= Helper::dateFormat($post->date_insert, 'd.m.Y') ?> : <?php echo $post->title ?></th>
     </tr>
     <tr>
-        <td colspan="2" class="text-justify"><?= Helper::decodeHTML($post->description); ?></td>
+        <td colspan="2"><?= Helper::decodeHTML($post->description); ?></td>
     </tr> 
     <tr>
         <th>Author: <?php echo $post->author ?></th><th>Comments: <?php echo count($post->comments) ?></th>          
@@ -62,7 +62,7 @@ if (is_array($post->comments) && count($post->comments) > 0) {
                 <th width="20%"> said: <?= Helper::dateFormat($comment->date_insert, 'd.m.Y H:s') ?></th>
             </tr>
             <tr>
-                <th colspan="4" class="text-justify"><?= Helper::decodeHTML($comment->remark); ?></th>
+                <td colspan="4" class="text-justify"><?= Helper::decodeHTML($comment->remark); ?></td>
             </tr>
         </table> 
 
@@ -94,34 +94,10 @@ if ($form->hasErrors()) {
     </div>
 <?php }
 ?>
-<form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method='post'>
-
-    <div class="form-group">
-        <label for="name">Name</label>
-        <input type="text" class="form-control" id="name" name="comment[name]" value='<?= $form->name ?>' placeholder="Name">
-    </div>
-
-    <div class="form-group">
-        <label for="email">Email (optional)</label>
-        <input type="text" class="form-control" id="email" name="comment[email]" value='<?= $form->email ?>' placeholder="Email">
-    </div>
-
-    <div class="form-group">
-        <label for="url">Url (optional)</label>
-        <input type="text" class="form-control" id="url" name="comment[url]" value='<?= $form->url ?>' placeholder="Url">
-    </div>
-
-    <div class="form-group">
-        <label for="remark">Remark</label>
-        <textarea class="form-control" id="remark" name="comment[remark]" placeholder="Remark" rows="5" ><?= $form->remark ?></textarea>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
 
 
-</form>
 
-</div>
+<?php $this->render('views/post/_comments_form', $params); ?>
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog">

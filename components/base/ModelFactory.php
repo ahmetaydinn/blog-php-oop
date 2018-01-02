@@ -1,9 +1,7 @@
 <?php
 
 namespace app\components\base;
-/**
- * Using Factory
- */
+
 class ModelFactory {
 
     public static function create($type = '') {

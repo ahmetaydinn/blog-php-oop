@@ -1,12 +1,25 @@
 <?php
 
 namespace app\components\base;
+
 /**
- * Using Proxy Design Pathern
+ * This class give the flexibility to insert properties to the object dinamically.
+ * 
+ * @author victor.leite@gmail.com
  */
 abstract class Base {
 
     private $data = [];
+
+    public function loadAttributes($attributes = []) {
+
+        if (isset($attributes) && is_array($attributes)) {
+            foreach ($attributes as $attribute => $value) {
+                $this->$attribute = $value;
+            }
+        }
+        return $this;
+    }
 
     public function __set($name, $value) {
         $this->data[$name] = $value;
@@ -20,7 +33,11 @@ abstract class Base {
     }
 
     public function __isset($name) {
-        return isset($this->data[$name]);
+        if (!isset($this->data[$name])) {
+            throw new \OutOfRangeException('Invalid name given');
+        }
+
+        return $this->data[$name];
     }
 
     public function __unset($name) {

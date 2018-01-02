@@ -10,6 +10,9 @@ use app\components\validators\RequiredValidator;
 use app\components\validators\LengthValidator;
 use app\components\validators\DateValidator;
 
+/**
+ * ORM Representing POST
+ */
 class Post extends BaseModel {
 
     public static function create() {
@@ -98,49 +101,43 @@ class Post extends BaseModel {
         return false;
     }
 
-    public function insert() {
+    public function save() {
 
         if ($this->validate()) {
 
-            $conn = Application::app()->db->conn;
-            $sql = " INSERT INTO post "
-                    . " ( title, description, date_publication, author_id ) "
-                    . " VALUES  "
-                    . " (?,?,?,?)";
-            // USES prepared statements to avoid sql injection
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([
-                // TO AVOID XSS ATTACKS, APPLY FILTERS
-                filter_var($this->title, FILTER_SANITIZE_STRING),
-                filter_var($this->description, FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-                $this->date_publication,
-                $this->author_id
-            ]);
-            $this->id = $conn->lastInsertId();
+            if (!$this->id) {
+                $conn = Application::app()->db->conn;
+                $sql = " INSERT INTO post "
+                        . " ( title, description, date_publication, author_id ) "
+                        . " VALUES  "
+                        . " (?,?,?,?)";
+                // USES prepared statements to avoid sql injection
+                $stmt = $conn->prepare($sql);
+                $stmt->execute([
+                    // TO AVOID XSS ATTACKS, APPLY FILTERS
+                    filter_var($this->title, FILTER_SANITIZE_STRING),
+                    filter_var($this->description, FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                    $this->date_publication,
+                    $this->author_id
+                ]);
+                $this->id = $conn->lastInsertId();
+            } else {
 
-            return true;
-        }
-        return false;
-    }
-
-    public function update() {
-
-        if ($this->validate()) {
-
-            $conn = Application::app()->db->conn;
-            $sql = " UPDATE post SET "
-                    . " title=?, description=?, date_publication=?, author_id=? "
-                    . " WHERE id=?;";
-            // USES prepared statements to avoid sql injection
-            $stmt = $conn->prepare($sql);
-            $stmt->execute([
-                // TO AVOID XSS ATTACKS, APPLY FILTERS
-                filter_var($this->title, FILTER_SANITIZE_STRING),
-                filter_var($this->description, FILTER_SANITIZE_FULL_SPECIAL_CHARS),
-                $this->date_publication,
-                $this->author_id,
-                $this->id
-            ]);
+                $conn = Application::app()->db->conn;
+                $sql = " UPDATE post SET "
+                        . " title=?, description=?, date_publication=?, author_id=? "
+                        . " WHERE id=?;";
+                // USES prepared statements to avoid sql injection
+                $stmt = $conn->prepare($sql);
+                $stmt->execute([
+                    // TO AVOID XSS ATTACKS, APPLY FILTERS
+                    filter_var($this->title, FILTER_SANITIZE_STRING),
+                    filter_var($this->description, FILTER_SANITIZE_FULL_SPECIAL_CHARS),
+                    $this->date_publication,
+                    $this->author_id,
+                    $this->id
+                ]);
+            }
 
             return true;
         }
@@ -148,6 +145,7 @@ class Post extends BaseModel {
     }
 
     public static function find($id) {
+
         $conn = Application::app()->db->conn;
         $sql = 'SELECT p.id as id, p.title as title, ' .
                 ' p.description as description, date_insert, ' .
@@ -156,7 +154,7 @@ class Post extends BaseModel {
                 ' FROM post p, author a ' .
                 ' where p.author_id = a.id and p.id =:id ' .
                 ' ORDER BY date_insert DESC ';
-        
+
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -171,6 +169,5 @@ class Post extends BaseModel {
 
         return $post;
     }
-
 
 }

@@ -1,6 +1,7 @@
 <?php
 
 use app\components\commons\Helper;
+use app\components\commons\Security;
 
 $post = $params['post'];
 

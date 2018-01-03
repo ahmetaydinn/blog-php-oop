@@ -1,6 +1,8 @@
 <?php
 
 use app\components\commons\Security;
+
+$form = $params['comment'];
 ?>
 
 <form action="<?php echo $_SERVER['REQUEST_URI'] ?>" method='post'>

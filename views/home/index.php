@@ -31,7 +31,7 @@ if (is_array($posts) && count($posts) > 0) {
                 </th>
             </tr>
             <tr>
-                <td colspan="2"><?= Helper::inTheEnd(Helper::decodeHTML($post->description), '...', 1000) ?></td>
+                <td colspan="2"><?= Helper::inTheEnd(Helper::decodeHTML($post->description), '...', 1000) ?> <a href="./index.php?r=post/detail&id=<?php echo $post->id ?>">Read More</a></td>
             </tr> 
             <tr>
                 <th>Author: <?php echo $post->author ?></th><th>Comments: <a href="./index.php?r=post/detail&id=<?php echo $post->id ?>"><?php echo count($post->comments) ?></a></th>          

@@ -113,11 +113,27 @@ class Comment extends ModelBase {
     }
 
     public static function delete($id) {
-        // Implement DELETE here
+
+        $conn = Application::app()->db->conn;
+        $sql = 'DELETE FROM comment WHERE id = :id';
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
     }
 
     public static function find($id) {
-        // Implement FIND here
+
+        $conn = Application::app()->db->conn;
+        $sql = "SELECT * FROM comment where id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->execute([
+            $id
+        ]);
+        $comment = ModelFactory::create('Comment');
+        $result = $stmt->fetch(\PDO::FETCH_ASSOC);
+        $comment->loadAttributes($result);
+
+        return $comment;
     }
 
 }

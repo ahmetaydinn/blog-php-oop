@@ -85,7 +85,7 @@ class Post extends BaseModel {
     static function delete($id) {
 
         $conn = Application::app()->db->conn;
-        $sql = 'DELETE FROM user WHERE id = :id';
+        $sql = 'DELETE FROM post WHERE id = :id';
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

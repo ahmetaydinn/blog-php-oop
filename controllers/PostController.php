@@ -5,6 +5,7 @@ namespace app\controllers;
 use \app\components\base\Controller as BaseController;
 use \app\components\base\ModelFactory;
 use app\models\Post;
+use app\models\Comment;
 use app\components\Auth;
 use app\components\commons\Security;
 
@@ -88,6 +89,11 @@ class PostController extends BaseController {
         // check auth
         $post = Post::find($id);
         if ($post->isOwner($authorId)) {
+            
+            foreach($post->comments as $comment){
+                 Comment::delete($comment->id);
+            }
+            
             Post::delete($id);
         }
 

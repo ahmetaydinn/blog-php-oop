@@ -1,0 +1,16 @@
+{
+    "name": "victor/blog",
+    "description": "Blog to practice oop concepts",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "VictorLeite",
+            "email": "victor.leite@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "codeception/codeception": "dev-master"
+    }
+}

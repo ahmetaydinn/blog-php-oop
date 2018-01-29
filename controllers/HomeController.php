@@ -39,5 +39,6 @@ class HomeController extends BaseController {
         //Set a flash message here.
         $this->redirect('home/index');
     }
+   
 
 }

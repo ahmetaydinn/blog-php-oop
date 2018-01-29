@@ -38,6 +38,11 @@ mysql -p -u[user] blog < blog.sql
 http://localhost/blog/
 
 
+### Test
+```sh
+$ ./vendor/bin/codecept run --steps
+```
+
 ### Author
 Victor Leite - <victor.leite@gmail.com> 
 

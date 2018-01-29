@@ -39,6 +39,9 @@ http://localhost/blog/
 
 
 ### Test
+
+Acceptance Tests, Functional Tests and Unit Tests
+
 ```sh
 $ ./vendor/bin/codecept run --steps
 ```

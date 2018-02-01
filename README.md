@@ -19,9 +19,9 @@ On this project you also could realise how to deal with:
 
 # 
 Views:
-[HOME](https://github.com/victorfleite/blog-php-oop/blob/master/assets/imgs/print.png)
-[LOGIN](https://github.com/victorfleite/blog-php-oop/blob/master/assets/imgs/print.png)
-[CREATE POST](https://github.com/victorfleite/blog-php-oop/blob/master/assets/imgs/print.png)
+[HOME](https://github.com/victorfleite/blog-php-oop/blob/master/assets/imgs/print.png) |
+[LOGIN](https://github.com/victorfleite/blog-php-oop/blob/master/assets/imgs/login.png) | 
+[CREATE POST](https://github.com/victorfleite/blog-php-oop/blob/master/assets/imgs/create.png)
 
 ### Installation
 

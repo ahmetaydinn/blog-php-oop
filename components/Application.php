@@ -12,8 +12,8 @@ use app\components\Router;
 
 
 /**
- * Here we have examples of Singleton App Design, mixed with 
- * 
+ * Here is the backbone of application. On this class every request and response comes.
+ * The parent class BaseApplication is a singleton to control de instances in memory.
  * 
  * @author victor.leite@gmail.com
  */
@@ -22,14 +22,18 @@ class Application extends BaseApplication {
     public $name = '';
     public $router;
     public $controller;
-
+    /**
+     * Start the application
+     */
     public function run() {
 
         $this->lifeCicle();
     }
-
+    /**
+     * It is the lifecicle of application. Every steps that application will call.
+     */
     private function lifeCicle() {
-
+        
         $this->preInit();
 
         $this->init();
@@ -40,7 +44,7 @@ class Application extends BaseApplication {
     }
 
     /**
-     * Load config from the config file
+     * Load config from the config file /config/main.php
      */
     private function preInit() {
         // load configs
@@ -74,7 +78,7 @@ class Application extends BaseApplication {
     }
 
     /**
-     * Finish the application correctly and every component
+     * Finish the application correctly for every component
      */
     public function end() {
 
@@ -87,12 +91,20 @@ class Application extends BaseApplication {
             }
         }
     }
-
+    /**
+     * Add the component on application instance.
+     * @param string $name
+     * @param Component $component
+     * @return type
+     */
     private function setComponent(string $name, Component $component) {
         $this->$name = $component;
         return $this->$name;
     }
-
+    /**
+     * Create the router object and add that to the application instance
+     * and delegate it to resolve the route of application.
+     */
     private function resolveRoutes() {
 
         $router = new Router($this);
@@ -101,12 +113,18 @@ class Application extends BaseApplication {
         $controller = ControllerFactory::create($router->getControllerName());
         $this->setController($controller);
     }
-
+    /**
+     * Set the rounter instance on application instance to be delegate on the future.
+     * @param BaseRouter $router
+     */
     private function setRouter(BaseRouter $router) {
 
         $this->router = $router;
     }
-
+    /**
+     * Set the controller instance on application instance to be delegate on the future.
+     * @param BaseController $controller
+     */
     private function setController(BaseController $controller) {
 
         $this->controller = $controller;

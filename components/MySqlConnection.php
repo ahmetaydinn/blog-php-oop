@@ -4,23 +4,44 @@ namespace app\components;
 
 use app\components\base\iConnection;
 use app\components\base\Component;
-
+/**
+ *  class for manipulate Mysql connection
+ * 
+ * @author victor.leite@gmail.com
+ */
 class MySqlConnection extends Component implements iConnection {
-
+    
+    /**
+     * Instance of Mysql PDO connection
+     * @var type \
+     */
     public $conn;
 
     public function __construct($config) {
         parent::__construct($config);
     }
-
+    /**
+     * Starting method
+     * @param type $params
+     * @return type
+     */
     public function bootstrap($params = []) {
         return $this->connect($this->_config);
     }
-
+    /**
+     * Finishing method
+     * @param type $params
+     * @return type
+     */
     public function end($params = []) {
         return $this->close($this->_config);
     }
-
+    /**
+     * Initialize the connection with the mysql database based on config parameters passed.
+     * @param type $config
+     * @return type
+     * @throws \Exception
+     */
     public function connect($config) {
 
         if (!is_array($config)) {
@@ -49,7 +70,10 @@ class MySqlConnection extends Component implements iConnection {
 
         return;
     }
-
+    /**
+     * Kill the connection with mysql database
+     * @param type $params
+     */
     public function close($params = []) {
         $this->conn = null;
     }

@@ -3,9 +3,19 @@
 namespace app\components\validators;
 
 use \app\components\base\Validator as BaseValidator;
-
+/**
+ * Class to validate date format
+ * 
+ * @author victor.leite@gmail.com
+ */
 class DateValidator extends BaseValidator {
-
+    /**
+     * Check if the date is valid in a specific format passed as options values
+     * @param type $value
+     * @param type $options
+     * @return boolean
+     * @throws \Exception
+     */
     public static function isValid($value, $options) {
 
         if (!isset($options['format'])) {

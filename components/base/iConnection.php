@@ -9,7 +9,15 @@ namespace app\components\base;
  */
 interface iConnection {
 
+    /**
+     *  Abstraction that force the instance implement the connection 
+     * @param type $config
+     */
     public function connect($config);
 
+    /**
+     *  Abstraction that force the instance close the connection 
+     * @param type $params
+     */
     public function close($params);
 }

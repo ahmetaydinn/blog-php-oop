@@ -3,7 +3,7 @@
 namespace app\components\base;
 
 /**
- * Class that factory the model
+ * Class that instantiates the model class
  */
 class ModelFactory {
 

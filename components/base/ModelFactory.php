@@ -2,8 +2,17 @@
 
 namespace app\components\base;
 
+/**
+ * Class that factory the model
+ */
 class ModelFactory {
 
+    /**
+     * Create the model based on type 
+     * @param type $type
+     * @return \app\components\base\className
+     * @throws \Exception
+     */
     public static function create($type = '') {
 
         if ($type == '') {

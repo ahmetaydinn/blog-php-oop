@@ -3,7 +3,11 @@
 namespace app\components\validators;
 
 use \app\components\base\Validator as BaseValidator;
-
+/**
+ * Class to validate the lenght of text.
+ * 
+ * @author victor.leite@gmail.com
+ */
 class LengthValidator extends BaseValidator {
 
     public static function isValid($value, $options) {

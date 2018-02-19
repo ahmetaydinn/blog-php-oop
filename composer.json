@@ -12,10 +12,5 @@
     "minimum-stability": "dev",
     "require": {
         "codeception/codeception": "dev-master"
-    },
-    "autoload":{
-        "psr-4": {
-            "app\\": "\\"        
-        }
     }
 }

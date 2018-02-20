@@ -1,5 +1,5 @@
 # blog
-The intention of this project was to highlight Oriented Object Programming concepts.
+The intention of this project was to highlight Oriented Object Programming concepts and S.O.L.I.D principles (by Uncle Bob).
 Here we have many design patterns as:
 
 - Singleton;

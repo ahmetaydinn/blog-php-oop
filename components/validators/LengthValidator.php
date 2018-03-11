@@ -3,6 +3,7 @@
 namespace app\components\validators;
 
 use \app\components\base\Validator as BaseValidator;
+
 /**
  * Class to validate the lenght of text.
  * 

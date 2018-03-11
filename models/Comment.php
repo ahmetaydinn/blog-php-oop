@@ -23,12 +23,16 @@ class Comment extends ModelBase {
             $this->addError(new ModelError('name', 'Name is required'));
         }
 
-        if (!LengthValidator::isValid($this->name, ['quantity' => 100])) {
-            $this->addError(new ModelError('name', 'Name max size is 100 characters'));
-        }
-
         if (!RequiredValidator::isValid($this->remark)) {
             $this->addError(new ModelError('remark', 'Remark is required'));
+        }
+
+        if ($this->hasErrors()) {
+            return false;
+        }
+
+        if (!LengthValidator::isValid($this->name, ['quantity' => 100])) {
+            $this->addError(new ModelError('name', 'Name max size is 100 characters'));
         }
 
         if (!LengthValidator::isValid($this->remark, ['quantity' => 3000])) {

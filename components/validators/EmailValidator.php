@@ -3,6 +3,7 @@
 namespace app\components\validators;
 
 use \app\components\base\Validator as BaseValidator;
+
 /**
  * Class to Validate email
  * 
@@ -11,10 +12,10 @@ use \app\components\base\Validator as BaseValidator;
 class EmailValidator extends BaseValidator {
 
     public static function isValid($value, $options = []) {
-        if (isset($value) && trim($value) != '') {
-            return (filter_var($value, FILTER_VALIDATE_EMAIL));
+        if (!isset($value) || trim($value) == '') {
+            return false;
         }
-        return true;
+        return (filter_var($value, FILTER_VALIDATE_EMAIL));
     }
 
 }

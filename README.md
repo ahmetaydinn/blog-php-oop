@@ -9,7 +9,6 @@ Here we have many design patterns as:
 - Fluent Interface;
 - Dependency Injection;
 - Strategy;
-- Chain Of Responsibilities;
 - Delegation;
 
 On this project you also could realise how to deal with:
